@@ -1,0 +1,9 @@
+.gradle/
+build/
+run/
+.toolchain/
+.fabric-input/
+.full-reference/
+.port-reference/
+.source-reference/
+.remap/

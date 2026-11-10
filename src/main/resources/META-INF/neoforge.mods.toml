@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "GPL-3.0-or-later"
+
+[[mods]]
+modId = "wurst"
+version = "${version}"
+displayName = "Wurst Client"
+authors = "Wurst-Imperium and contributors"
+logoFile = "assets/wurst/icon.png"
+description = "Wurst Client for Minecraft 1.21.1 on NeoForge."
+
+[[dependencies.wurst]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.185,21.2)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.wurst]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "wurst.mixins.json"

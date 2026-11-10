@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '2.0.126'
+}
+
+group = 'net.wurstclient'
+version = '7.51.2-MC1.21.1'
+
+base {
+    archivesName = 'Wurst-Client-NeoForge'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+neoForge {
+    version = '21.1.185'
+    runs {
+        client {
+            client()
+            if (providers.gradleProperty('wurstE2E').isPresent()) {
+                gameDirectory = project.file('run/e2e')
+                systemProperty 'wurst.e2eTest', 'true'
+                systemProperty 'user.home', gameDirectory.get().asFile.absolutePath
+                systemProperty 'mixin.debug.countInjections', 'true'
+            }
+        }
+    }
+    mods {
+        wurst {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('processResources', ProcessResources) {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand version: project.version
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    from('LICENSE.txt')
+}
